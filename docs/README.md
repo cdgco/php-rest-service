@@ -425,7 +425,7 @@ Alternatively, you can provide your own error handler by using the [`setExceptio
 // Overwrite error messages based on code
 $server->setExceptionHandler(function(\Exception $e) use ($server) {
     $code = $e->getCode();
-    $switch ($code) {
+    switch ($code) {
         case 400:
             $message = 'Bad Request';
             break;
@@ -439,11 +439,11 @@ $server->setExceptionHandler(function(\Exception $e) use ($server) {
             $message = $e->getMessage();
     }
     
-    $server->getClient()->sendResponse($code, array(
+    $server->getClient()->sendResponse(array(
         'status' => $code,
         'error' => get_class($e),
         'message' => $message
-    ));
+    ), $code);
 })
 ```
 
